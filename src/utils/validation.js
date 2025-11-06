@@ -13,4 +13,22 @@ const validateReq = (req) => {
   }
 };
 
-module.exports = { validateReq };
+const validateEditFields = (userInputData) => {
+  const allowedFieldsUpdate = [
+    "firstName",
+    "lastName",
+    "skills",
+    "age",
+    "gender",
+    "emailId",
+    "about",
+    "photoUrl",
+  ];
+
+  const isValidUpdate = Object.keys(userInputData).every((k) =>
+    allowedFieldsUpdate.includes(k)
+  );
+  return isValidUpdate;
+};
+
+module.exports = { validateReq, validateEditFields };

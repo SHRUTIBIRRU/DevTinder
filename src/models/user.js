@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema(
   {
@@ -58,5 +60,25 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+//Industry standard/ Best practice
+//here we have attached user specific methods on user schema
+userSchema.methods.getJWT = async function () {
+  const user = this;
+  const token = await jwt.sign({ _id: user._id }, "Dev@Tinder!99", {
+    expiresIn: "7d",
+  });
+  return token;
+};
+
+userSchema.methods.validatePassword = async function (userInputPassword) {
+  console.log('called')
+  const user = this;
+  const isPasswordValid = await bcrypt.compare(
+    userInputPassword,
+    user.password
+  );
+  return isPasswordValid;
+};
 
 module.exports = mongoose.model("User", userSchema);
