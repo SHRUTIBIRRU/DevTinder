@@ -9,14 +9,21 @@
 
 ## UserRouter
 
-- GET /user/profile
-- PATCH /user/profile
-- GET /feed
+- GET /profile/view
+- PATCH /profile/edit
+- PATCH /profile/password
 
-# connectionRequest
+# connectionRequestRouter
 
-- POST /sendConnectionRequest
 - POST /user/send/ignored/:userId
 - POST /user/send/interested/:userId
-- GET  /user/interested/requests
+- POST /request/review/accepted/:requestId
+- POST /request/review/accepted/:requestId
 
+# userRouter
+
+- GET /user/connections
+- GET /user/requests
+- GET /user/feed //gets u the profile of other user
+
+status- ignore, interested, accepted, rejected
