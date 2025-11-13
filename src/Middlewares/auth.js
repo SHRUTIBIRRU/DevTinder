@@ -2,12 +2,12 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 
 const userAuth = async (req, res, next) => {
-  console.log("User auth is called");
+  console.log("User auth is called", req.cookies);
   try {
-    const { token } = req.cookies;
+    const { token } = req?.cookies;
     //validate the token
     if (!token) {
-      throw new Error("Invalid token!");
+      res.status(401).send("UnAuthorized, Please login");
     }
 
     const decodedObj = await jwt.verify(token, "Dev@Tinder!99");
